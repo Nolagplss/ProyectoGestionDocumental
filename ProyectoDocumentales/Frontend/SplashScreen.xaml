@@ -1,0 +1,55 @@
+﻿<Window x:Class="ProyectoDocumentales.Frontend.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoDocumentales.Frontend"
+        mc:Ignorable="d"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterScreen"
+        Title="SplashScreen" Height="450" Width="800">
+    <Window.Resources>
+        <!-- Efecto de desenfoque para la imagen -->
+        <BlurEffect x:Key="LogoBlurEffect" Radius="20" />
+    </Window.Resources>
+
+    <Grid Background="Transparent">
+        <!-- Fondo oscuro -->
+
+
+        <!-- Imagen del logo con efectos -->
+        <Image x:Name="LogoImage" 
+            Source="/Recursos/Iconos/DocuMeSinFondoPro.png" 
+            Width="200" Height="200" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+            Opacity="0"
+            RenderTransformOrigin="0.5,0.5">
+            <Image.Effect>
+                <BlurEffect x:Name="LogoBlur" Radius="20" />
+            </Image.Effect>
+
+            <!-- Animaciones para la imagen -->
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Image.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!-- Animacion de opacidad - de invisible a visible -->
+                            <DoubleAnimation 
+                             Storyboard.TargetName="LogoImage"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:2" />
+
+                            <!-- Animacion de efecto de desenfoque - de borroso a nitido -->
+                            <DoubleAnimation 
+                             Storyboard.TargetName="LogoBlur"
+                             Storyboard.TargetProperty="Radius"
+                             From="20" To="0" Duration="0:0:2.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+
+
+    </Grid>
+</Window>

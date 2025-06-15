@@ -1,0 +1,278 @@
+﻿<UserControl x:Class="ProyectoDocumentales.Frontend.Informes.UCInformes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProyectoDocumentales.Frontend.Informes"
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1150">
+    <UserControl.Resources>
+        <!-- Estilos para las tarjetas de estadísticas -->
+        <Style x:Key="StatCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray" Direction="270" ShadowDepth="2" BlurRadius="8" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo para botones de informes -->
+        <Style x:Key="ReportButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        
+        <!-- Estilo border con sombra -->
+        <Style x:Key="BorderWithShadow" TargetType="Border">
+
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect 
+                Color="Gray" 
+                Direction="270" 
+                ShadowDepth="3" 
+                BlurRadius="10" 
+                Opacity="0.2"/>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Barra de Titulo -->
+        <Grid Grid.Row="0" Background="#1d4355" Height="60">
+            <StackPanel Orientation="Horizontal" Margin="20,0">
+                <mat:PackIcon Kind="FileChart" Foreground="White" VerticalAlignment="Center" Height="30" Width="30"/>
+                <TextBlock Text="Centro de Informes" Foreground="White" FontSize="20" FontWeight="Bold" 
+                          VerticalAlignment="Center" Margin="15,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Contenido -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="20">
+
+                <!-- Seccion de Estadisticas -->
+                <Border Background="White" CornerRadius="12" Padding="20" Margin="0,0,0,30" Style="{StaticResource BorderWithShadow}">
+                  
+
+                    <StackPanel>
+                        <Grid Margin="0,0,0,20">
+                            <TextBlock Text="Estadísticas Generales" 
+                                      FontSize="20" 
+                                      FontWeight="SemiBold" 
+                                      Foreground="#1d4355"/>
+
+                            <Button x:Name="BtnRefrescar"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource MaterialDesignIconButton}"
+                                   ToolTip="Refrescar estadísticas"
+                                   Click="BtnRefrescar_Click">
+                                <mat:PackIcon Kind="Refresh" Width="20" Height="20"/>
+                            </Button>
+                        </Grid>
+
+                        <!-- Loading de estadísticas -->
+                        <ProgressBar 
+                            x:Name="progressBarEstadisticas"
+                                    IsIndeterminate="True" 
+                                    Height="4" 
+                                    Margin="0,0,0,20"
+                                    Visibility="Collapsed"
+                                    />
+
+                        <!-- Tarjetas de estadísticas -->
+                        <UniformGrid Columns="3" Rows="1">
+                            <!-- Total Documentos -->
+                            <Border Style="{StaticResource StatCardStyle}" Background="#E3F2FD">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <mat:PackIcon Kind="FileDocument" 
+                                                 Width="40" Height="40" 
+                                                 Foreground="#1976D2" 
+                                                 HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding TotalDocumentos}" 
+                                              FontSize="32" 
+                                              FontWeight="Bold" 
+                                              Foreground="#1976D2" 
+                                              HorizontalAlignment="Center" 
+                                              Margin="0,10,0,5"/>
+                                    <TextBlock Text="Total Documentos" 
+                                              FontSize="14" 
+                                              Foreground="#666" 
+                                              HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Documentos Este Año -->
+                            <Border Style="{StaticResource StatCardStyle}" Background="#E8F5E8">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <mat:PackIcon Kind="Calendar" 
+                                                 Width="40" Height="40" 
+                                                 Foreground="#4CAF50" 
+                                                 HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding DocumentosEsteAño}" 
+                                              FontSize="32" 
+                                              FontWeight="Bold" 
+                                              Foreground="#4CAF50" 
+                                              HorizontalAlignment="Center" 
+                                              Margin="0,10,0,5"/>
+                                    <TextBlock Text="Este Año" 
+                                              FontSize="14" 
+                                              Foreground="#666" 
+                                              HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Sector Principal -->
+                            <Border Style="{StaticResource StatCardStyle}" Background="#FFF3E0">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <mat:PackIcon Kind="Domain" 
+                                                 Width="40" Height="40" 
+                                                 Foreground="#FF9800" 
+                                                 HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding SectorMasDocumentos}" 
+                                              FontSize="16" 
+                                              FontWeight="Bold" 
+                                              Foreground="#FF9800" 
+                                              HorizontalAlignment="Center" 
+                                              Margin="0,10,0,5"
+                                              TextWrapping="Wrap"
+                                              TextAlignment="Center"/>
+                                    <TextBlock Text="Sector Principal" 
+                                              FontSize="14" 
+                                              Foreground="#666" 
+                                              HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Sección de Generación de Informes -->
+                <Border Background="White" CornerRadius="12" Padding="20" Style="{StaticResource BorderWithShadow}">
+                   
+
+                    <StackPanel>
+                        <TextBlock Text="Generación de Informes" 
+                                  FontSize="20" 
+                                  FontWeight="SemiBold" 
+                                  Foreground="#1d4355" 
+                                  Margin="0,0,0,20"/>
+
+                        <!-- Loading de generación -->
+                        <ProgressBar 
+                            x:Name="progressBarGeneracion"
+                            IsIndeterminate="True" 
+                                    Height="4" 
+                                    Margin="0,0,0,20"
+                                    Visibility="Collapsed"/>
+
+                        <UniformGrid Columns="2" Rows="1">
+                            <!-- Informe por Sector -->
+                            <Border Background="#F8F9FA" CornerRadius="8" Padding="20" Margin="10">
+                                <StackPanel>
+                                    <mat:PackIcon Kind="ChartPie" 
+                                                 Width="50" Height="50" 
+                                                 Foreground="#00796B" 
+                                                 HorizontalAlignment="Center" 
+                                                 Margin="0,0,0,15"/>
+
+                                    <TextBlock Text="Informe por Sectores" 
+                                              FontSize="18" 
+                                              FontWeight="SemiBold" 
+                                              Foreground="#1d4355" 
+                                              HorizontalAlignment="Center" 
+                                              Margin="0,0,0,10"/>
+
+                                    <TextBlock Text="Genera un informe detallado de documentos agrupados por sectores empresariales, incluyendo estadísticas y listados." 
+                                              FontSize="12" 
+                                              Foreground="#666" 
+                                              TextWrapping="Wrap" 
+                                              TextAlignment="Center" 
+                                              Margin="0,0,0,20"/>
+
+                                    <Button x:Name="BtnInformePorSector"
+                                           Content="GENERAR INFORME"
+                                           Style="{StaticResource ReportButtonStyle}"
+                                           Background="#00796B"
+                                           BorderBrush="#00796B"
+                                           Click="BtnInformePorSector_Click"
+                                          />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Informe Anual -->
+                            <Border Background="#F8F9FA" CornerRadius="8" Padding="20" Margin="10">
+                                <StackPanel>
+                                    <mat:PackIcon Kind="ChartLine" 
+                                                 Width="50" Height="50" 
+                                                 Foreground="#1976D2" 
+                                                 HorizontalAlignment="Center" 
+                                                 Margin="0,0,0,15"/>
+
+                                    <TextBlock Text="Informe Resumen Anual" 
+                                              FontSize="18" 
+                                              FontWeight="SemiBold" 
+                                              Foreground="#1d4355" 
+                                              HorizontalAlignment="Center" 
+                                              Margin="0,0,0,10"/>
+
+                                    <TextBlock Text="Genera un resumen estadístico anual con los datos mensuales, totales por año y las tendencias generales." 
+                                              FontSize="12" 
+                                              Foreground="#666" 
+                                              TextWrapping="Wrap" 
+                                              TextAlignment="Center" 
+                                              Margin="0,0,0,20"/>
+
+                                    <Button x:Name="BtnInformeAnual"
+                                           Content="GENERAR INFORME"
+                                           Style="{StaticResource ReportButtonStyle}"
+                                           Background="#1976D2"
+                                           BorderBrush="#1976D2"
+                                           Click="BtnInformeAnual_Click"
+                                          />
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+
+                        <!-- Información adicional -->
+                        <Border Background="#FFF3CD" 
+                               BorderBrush="#FFEEBA" 
+                               BorderThickness="1" 
+                               CornerRadius="4" 
+                               Padding="15" 
+                               Margin="10,20,10,0">
+                            <StackPanel Orientation="Horizontal">
+                                <mat:PackIcon Kind="Information" 
+                                             Width="20" Height="20" 
+                                             Foreground="#856404" 
+                                             VerticalAlignment="Top" 
+                                             Margin="0,0,10,0"/>
+                                <TextBlock FontSize="12" Foreground="#856404" TextWrapping="Wrap">
+                                    <Run Text="Los informes se generan en formato PDF y se guardan automáticamente en la carpeta "/>
+                                    <Run Text="'Informes'" FontWeight="Bold"/>
+                                    <Run Text=" del escritorio. Al finalizar, se ofrecerá la opción de abrirlos directamente."/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

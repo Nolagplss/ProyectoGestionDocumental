@@ -1,0 +1,286 @@
+﻿<UserControl x:Class="ProyectoDocumentales.Frontend.ControlUsuario.UCDocumentos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ProyectoDocumentales.Frontend.ControlUsuario" xmlns:mvvm="clr-namespace:ProyectoDocumentales.MVVM" d:DataContext="{d:DesignInstance Type=mvvm:MvDocumentos}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1300">
+
+
+    <Grid Background="#F5F5F5" Margin="0">
+        <!-- Menu de filtros -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Menu de filtros -->
+        <Grid Grid.Row="0" Background="#1d4355">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!-- Nombre de la pagina donde estas -->
+            <Grid Grid.Column="0" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10,0,0,0" Text="Home" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold">
+                    </TextBlock>
+                    <Border Width="2" Background="White" VerticalAlignment="Stretch" Margin="10,0,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Filtros -->
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <!-- Para Palabra filtro -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Para el Border -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Para el Responsable -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Para la empresa -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Para el sector -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Para Fecha Inicial -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Para Fecha Final -->
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Margin="10,0,0,0" Text="Filtros" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+                <Border Grid.Column="1" Width="2" Background="White" VerticalAlignment="Stretch" Margin="10,15,0,15"/>
+
+                <TextBox x:Name="txtResponsable" Grid.Column="2" Margin="10,5,5,5" Foreground="White" 
+                         mat:HintAssist.Hint="Responsable" 
+                         Text="{Binding txtResponsable, UpdateSourceTrigger=PropertyChanged}" 
+                         Style="{StaticResource MaterialDesignTextBox}"/>
+
+                <ComboBox Grid.Column="3" Margin="10,5,5,5" 
+                          ItemsSource="{Binding ListaEmpresas}" 
+                          SelectedItem="{Binding EmpresaSeleccionada}" 
+                          DisplayMemberPath="RazonSocial" 
+                          x:Name="ComboEmpresas" 
+                          DropDownOpened="ComboEmpresas_DropDownOpened" 
+                          DropDownClosed="ComboEmpresas_DropDownClosed" 
+                          Foreground="White" 
+                          mat:HintAssist.Hint="Empresa" 
+                          Style="{StaticResource MaterialDesignComboBox}">
+                </ComboBox>
+
+                <ComboBox Grid.Column="4" Margin="10,5,5,5" 
+                          ItemsSource="{Binding ListaSectores}" 
+                          SelectedItem="{Binding SectorSeleccionado}" 
+                          x:Name="ComboSectores" 
+                          DropDownOpened="ComboSectores_DropDownOpened" 
+                          DropDownClosed="ComboSectores_DropDownClosed" 
+                          Foreground="White" 
+                          mat:HintAssist.Hint="Sector" 
+                          Style="{StaticResource MaterialDesignComboBox}"/>
+
+                <DatePicker x:Name="datePickerInicial" Margin="10,5,5,0" Grid.Column="5" VerticalAlignment="Center" 
+                            mat:HintAssist.Hint="Fecha Incial" 
+                            Foreground="White" 
+                            SelectedDate="{Binding FechaInicial, Mode=TwoWay}"
+                            CalendarOpened="datePickerInicial_CalendarOpened" 
+                            CalendarClosed="datePickerInicial_CalendarClosed" />
+
+                <DatePicker x:Name="datePickerFinal" Margin="10,5,5,0" Grid.Column="6" VerticalAlignment="Center" 
+                            mat:HintAssist.Hint="Fecha Final" 
+                            SelectedDate="{Binding FechaFinal, Mode=TwoWay}"
+                            Foreground="White" 
+                            CalendarOpened="datePickerFinal_CalendarOpened" 
+                            CalendarClosed="datePickerFinal_CalendarClosed" />
+            </Grid>
+
+            <!-- Botones Filtros -->
+            <Grid Grid.Column="2" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <!-- Para boton Aplicar Filtros -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Para boton borrar Filtros -->
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnAplicar" Grid.Column="0" Margin="10,5,5,5" Background="Transparent" BorderThickness="1" BorderBrush="White" Content="Aplicar" Click="btnAplicar_Click" />
+                <Button x:Name="btnBorrarFiltros" Grid.Column="1" Margin="10,5,10,5" Background="Transparent" BorderThickness="1" BorderBrush="White" Content="Borrar Filtros" HorizontalAlignment="Right" Click="btnBorrarFiltros_Click" />
+                <Button x:Name="btnCrearDocumento" Grid.Column="2" Margin="10,5,10,5" Background="#00796B" BorderThickness="1" BorderBrush="#00796B" Foreground="White" Content="Nuevo Documento" HorizontalAlignment="Right" Click="btnCrearDocumento_Click" />
+            </Grid>
+        </Grid>
+
+        <!-- DataGrid principal -->
+        <Grid Grid.Row="1">
+            <Border Style="{StaticResource BorderWithShadow}" Background="White" CornerRadius="8" Padding="0" Margin="10">
+                <DataGrid x:Name="dgDocumentos" 
+                          ItemsSource="{Binding ListaDocumentosCV}" 
+                          IsReadOnly="True" 
+                          AutoGenerateColumns="False" 
+                          ColumnWidth="*" 
+                          CanUserAddRows="False" 
+                          HorizontalAlignment="Stretch" 
+                          VerticalAlignment="Stretch" 
+                          Margin="10" 
+                          FontSize="14" 
+                          SelectionMode="Single" 
+                          RowHeight="60" 
+                          Style="{StaticResource CustomDataGridStyle}" 
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" 
+                          HeadersVisibility="Column">
+
+                    <!-- Definición de las columnas del DataGrid -->
+                    <DataGrid.Columns>
+                        <!-- Columna "Nº Concierto" -->
+                        <DataGridTextColumn Header="Nº Concierto" Binding="{Binding NumeroConcierto}" Width="*" MinWidth="120" CellStyle="{StaticResource DataGridCellStyle}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Columna "Fecha Firma" -->
+                        <DataGridTextColumn Header="Fecha Firma" Binding="{Binding FechaFirma, StringFormat={}{0:dd/MM/yyyy}}" Width="*" MinWidth="120" CellStyle="{StaticResource DataGridCellStyle}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Columna "Responsable" -->
+                        <DataGridTextColumn Header="Responsable" Binding="{Binding IdEmpresaNavigation.IdResponsableNavigation.Nombre}" Width="*" MinWidth="100" CellStyle="{StaticResource DataGridCellStyle}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Columna "Usuario" -->
+                        <DataGridTextColumn Header="Usuario" Binding="{Binding IdUsuarioNavigation.Nombre}" Width="*" MinWidth="100" CellStyle="{StaticResource DataGridCellStyle}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Columna "Empresa" -->
+                        <DataGridTextColumn Header="Empresa" Binding="{Binding IdEmpresaNavigation.RazonSocial}" Width="*" MinWidth="150" CellStyle="{StaticResource DataGridCellStyle}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!-- Columna "Centro Educativo" -->
+                        <DataGridTextColumn Header="Centro Educativo" Binding="{Binding IdCentroEducativoNavigation.Nombre}" Width="*" MinWidth="150" CellStyle="{StaticResource DataGridCellStyle}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <!--Centro trabajo-->
+                        <DataGridTemplateColumn Header="Centro Trabajo" Width="*" MinWidth="150" CellStyle="{StaticResource DataGridCellStyle}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ListBox ItemsSource="{Binding IdEmpresaNavigation.CentrosTrabajos}" DisplayMemberPath="Direccion" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Documento" Width="*"  MinWidth="150" CellStyle="{StaticResource DataGridCellStyle}" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Ver documento" x:Name="btnVerDocumento" Click="btnVerDocumento_Click" Tag="{Binding Ruta}" Margin="5" Padding="5,2" Background="#00796B" Foreground="White" BorderThickness="0" HorizontalAlignment="Center">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="4"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Acciones -->
+                        <DataGridTemplateColumn Header="Acciones" Width="150" MinWidth="150" CellStyle="{StaticResource DataGridCellStyle}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <!--  Editar -->
+                                        <Button x:Name="btnEditar" Click="btnEditar_Click" Tag="{Binding}" Margin="5,0" Padding="8" Background="#00796B" Foreground="White" BorderThickness="0" ToolTip="Editar Documento">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="4"/>
+                                                </Style>
+                                            </Button.Resources>
+                                            <mat:PackIcon Kind="Edit" Width="16" Height="16"/>
+                                        </Button>
+
+                                        <!-- Eliminar -->
+                                        <Button x:Name="btnEliminar" Click="btnEliminar_Click" Tag="{Binding}" Margin="5,0" Padding="8" Background="#00796B" Foreground="White" BorderThickness="0" ToolTip="Eliminar Documento">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="4"/>
+                                                </Style>
+                                            </Button.Resources>
+                                            <mat:PackIcon Kind="Delete" Width="16" Height="16"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+
+        <!-- Paginación -->
+        <Grid Grid.Row="2" Background="White" Margin="10,0,10,10">
+            <Border Style="{StaticResource BorderWithShadow}" Background="White" CornerRadius="8" Padding="20,15">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Boton Anterior -->
+                    <Button x:Name="btnAnterior" Grid.Column="0" Click="btnAnterior_Click" HorizontalAlignment="Left" Background="#00796B" Foreground="White" BorderThickness="0" Padding="15,8" FontSize="14" FontWeight="Medium" Cursor="Hand" ToolTip="Página anterior" Content="Anterior" Style="{StaticResource BotonPaginacion}">
+                    </Button>
+
+                    <!-- Información de página -->
+                    <Border Grid.Column="1" Background="#F5F5F5" CornerRadius="20" Padding="20,8" Margin="20,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Página" Foreground="#1d4355" FontSize="14" FontWeight="Medium" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding PaginaActual}" Foreground="#00796B" FontSize="16" FontWeight="Bold" Margin="8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="de" Foreground="#1d4355" FontSize="14" FontWeight="Medium" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding TotalPaginas}" Foreground="#00796B" FontSize="16" FontWeight="Bold" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Boton Siguiente -->
+                    <Button x:Name="btnSiguiente" Grid.Column="2" Click="btnSiguiente_Click" HorizontalAlignment="Right" Background="#00796B" Foreground="White" BorderThickness="0" Padding="15,8" FontSize="14" FontWeight="Medium" Cursor="Hand" ToolTip="Pagina siguiente" Content="Siguiente" Style="{StaticResource BotonPaginacion}" >
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

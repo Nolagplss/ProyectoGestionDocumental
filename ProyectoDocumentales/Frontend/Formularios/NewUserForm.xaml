@@ -1,0 +1,209 @@
+﻿<Window x:Class="ProyectoDocumentales.Frontend.Formularios.NewUserForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoDocumentales.Frontend.Formularios"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:mvvm="clr-namespace:ProyectoDocumentales.MVVM" d:DataContext="{d:DesignInstance Type=mvvm:MvUsuarios}"
+        mc:Ignorable="d"
+        Title="NewUserForm" Height="750" Width="800"
+         WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None">
+    <Window.Resources>
+        <!-- Estilos para el formulario -->
+      
+        <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="#00796B"/>
+            <Setter Property="Background" Value="White"/>
+        
+        </Style>
+        <Style x:Key="PasswordBoxErrorStyle" TargetType="PasswordBox" BasedOn="{StaticResource PasswordBoxStyle}">
+            <Setter Property="BorderBrush" Value="Red"/>
+        </Style>
+
+
+        <!-- Estilo para el Border con sombra -->
+        <Style x:Key="BorderConSombra" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" Direction="180" ShadowDepth="2" BlurRadius="25" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Borde principal con sombra -->
+        <Border Background="White" CornerRadius="8" Margin="15" Style="{StaticResource BorderConSombra}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header con barra superior -->
+                <Grid Grid.Row="0" Background="#1d4355" MouseDown="Grid_MouseDown">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Titulo -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="20,15">
+                        <mat:PackIcon Kind="Account" Foreground="White" VerticalAlignment="Center" Height="25" Width="25"/>
+                        <TextBlock Margin="10,0,0,0" x:Name="tituloForm" Foreground="White" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <!-- Botón cerrar -->
+                    <Button Grid.Column="1" x:Name="btnCerrar" Click="btnCerrar_Click" Background="Transparent" BorderThickness="0" Padding="5" Margin="10">
+                        <mat:PackIcon Kind="Close" Width="20" Height="20" Foreground="White" />
+                    </Button>
+                </Grid>
+
+                <!-- Contenido del formulario -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="30,20">
+                    <StackPanel Margin="10">
+
+                        <!-- Datos Personales -->
+                        <TextBlock Text="Datos Personales" Style="{StaticResource SectionHeaderStyle}"/>
+
+                        <!-- Nombre y Apellidos -->
+                        <Grid Margin="0,10,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4.9*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="4.9*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Nombre:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox x:Name="txtNombre" Style="{StaticResource TextBoxStyle}" Grid.Row="1" Grid.Column="0" 
+                                     Text="{Binding usuario.Nombre, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Text="Apellidos:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
+                            <TextBox x:Name="txtApellidos" Style="{StaticResource TextBoxStyle}" Grid.Row="1" Grid.Column="2" 
+                                     Text="{Binding usuario.Apellidos, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                        <!-- DNI y Correo -->
+                        <Grid Margin="0,10,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4.9*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="4.9*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="DNI:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox x:Name="txtDni" Style="{StaticResource TextBoxStyle}" Grid.Row="1" Grid.Column="0" 
+                                     Text="{Binding usuario.Dni, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBlock Text="Correo Electrónico:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
+                            <TextBox x:Name="txtCorreo" Style="{StaticResource TextBoxStyle}" Grid.Row="1" Grid.Column="2" 
+                                     Text="{Binding usuario.Correo, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                      
+
+                        <!-- Contraseña y Rol -->
+                        <Grid Margin="0,10,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4.9*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="4.9*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Contraseña: (Obligatorio)" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                            <Grid Grid.Row="1" Grid.Column="0">
+                                <TextBox x:Name="txtContraseniaHidden" 
+                                 Style="{StaticResource TextBoxStyle}"
+                                 Text="{Binding usuario.Contrasenia, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+                                 Visibility="Collapsed"/>
+
+                                <PasswordBox x:Name="txtContrasenia" 
+                                 Style="{StaticResource PasswordBoxStyle}"
+                                 PasswordChanged="txtContrasenia_PasswordChanged"/>
+                            </Grid>
+
+                            <TextBlock x:Name="txtContraseniaError" 
+                               Text="La contraseña es obligatoria."
+                               Foreground="Red"
+                               FontSize="12"
+                               Visibility="Collapsed"
+                               Grid.Row="2" Grid.Column="0"/>
+
+                            <TextBlock Text="Rol:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
+                            <ComboBox x:Name="cmbRol" Style="{StaticResource ComboBoxStyle}" Grid.Row="1" Grid.Column="2" 
+                                  ItemsSource="{Binding ListaRoles}" 
+                                  SelectedValue="{Binding usuario.IdRol, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" 
+                                  SelectedValuePath="IdRol"
+                                  DisplayMemberPath="NombreRol" 
+                                  SelectionChanged="cmbRol_SelectionChanged"/>
+
+                        </Grid>
+
+
+                        <!-- Observaciones -->
+                        <Grid Margin="0,10,0,20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Observaciones:" Style="{StaticResource LabelStyle}" Grid.Row="0"/>
+                            <TextBox x:Name="txtObservaciones" Grid.Row="1" Height="80" TextWrapping="Wrap" AcceptsReturn="True" 
+                                     VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" 
+                                     Text="{Binding usuario.Observaciones, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                    
+
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Botones finales -->
+                <Grid Grid.Row="2" Background="#F8F9FA" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="1" x:Name="btnCancelar" Content="Cancelar" Width="120" Height="45" 
+                            Style="{StaticResource MaterialDesignOutlinedButton}" 
+                            BorderBrush="#365b6d" Foreground="#365b6d" 
+                            Click="btnCancelar_Click" Margin="0,0,20,0"/>
+
+                    <Button Grid.Column="2" x:Name="btnGuardarUsuario" Content="Guardar" Width="150" Height="45" 
+                            Style="{StaticResource MaterialDesignRaisedButton}" 
+                            Background="#365b6d" BorderBrush="#365b6d" Foreground="White" 
+                            Click="btnGuardarUsuario_Click"/>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

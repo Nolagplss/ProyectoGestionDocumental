@@ -1,0 +1,287 @@
+﻿<mah:MetroWindow x:Class="ProyectoDocumentales.Frontend.Home"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoDocumentales.Frontend"
+        mc:Ignorable="d"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        ShowTitleBar="False"
+        ShowCloseButton="False"
+        ShowMaxRestoreButton="False"
+        ShowMinButton="False"
+        ResizeMode="CanResizeWithGrip"
+      
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="Segoe UI"
+        mat:ShadowAssist.Darken="True"
+        Title="Home" Height="600" Width="1000">
+
+  
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            
+        </Grid.RowDefinitions>
+
+        <!-- PARTE DE ARRIBA -->
+        <Grid Grid.Row="0" VerticalAlignment="Top" Margin="0">
+
+            <!-- Barra superior personalizada -->
+            <Grid Background="#365b6d" Height="40" MouseDown="Grid_MouseDown" VerticalAlignment="Top" >
+                
+                <!-- Division parte superior -->
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    
+                </Grid.ColumnDefinitions>
+                
+                
+                <!-- Texto Documentador 3000-->
+
+                <Grid Grid.Column="0">
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+
+                        <mat:PackIcon Kind="FileDocument" Foreground="White" VerticalAlignment="Center" Height="30" Width="25" MaxHeight="50" MaxWidth="50"></mat:PackIcon>
+
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            Text="DocuMe" FontSize="18" VerticalAlignment="Center" Foreground="White"></TextBlock>
+
+                       
+                    </StackPanel>
+                    
+                   
+                    
+                </Grid>
+
+                <Grid Grid.Column="1">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <Button x:Name="btnCentroEducativo" Background="Transparent" BorderThickness="0" Cursor="Hand" Padding="5"
+                                Click="btnCentroEducativo_Click">
+                            <mat:PackIcon Kind="House" Foreground="White" 
+                            VerticalAlignment="Center" Height="30" Width="25" MaxHeight="50" MaxWidth="50"></mat:PackIcon>
+                        </Button>
+                        <TextBlock Margin="10,0,0,0" Text="{Binding Centro.Nombre}" FontSize="18" VerticalAlignment="Center" Foreground="White">
+                        </TextBlock>
+
+                    </StackPanel>
+                    
+                </Grid>
+                
+                <!-- Parte derecha barra arriba -->
+                <Grid Grid.Column="2">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                        <!-- Boton User -->
+                        <Button x:Name="btnUser" Margin="5" Background="Transparent" BorderThickness="0" Padding="5" Click="btnUser_Click" Cursor="Hand">
+                            <mat:PackIcon Margin="5" Kind="User" Foreground="White" VerticalAlignment="Center" Height="20" Width="20"></mat:PackIcon>
+                        </Button>
+                      
+                        <!-- Cerrar Sesion -->
+                        <Button x:Name="btnCerrarSesion"
+                                Margin="5,5,20,5" Content="Cerrar Sesión" Background="Transparent" BorderThickness="0" Padding="5" 
+                                Click="btnCerrarSesion_Click"></Button>
+
+                        <!-- Boton Minimizar -->
+                        <Button 
+                            x:Name="btnMinimizarApp"
+                            Click="btnMinimizarApp_Click"
+                            Background="Transparent"
+                            BorderThickness="0"
+                             VerticalAlignment="Bottom" 
+                            Margin="5,5,5,0"
+                            Padding="5"
+                            >
+
+                            <mat:PackIcon Kind="WindowMinimize" Width="25" Height="25"></mat:PackIcon>
+
+                        </Button>
+
+                        <Button 
+                             x:Name="btnMaximizarMinimizar"
+                             HorizontalAlignment="Center" 
+                             Click="btnMaximizarMinimizar_Click"
+                             Background="Transparent" 
+                             BorderThickness="0"
+                             Padding="5"
+                             Margin="5">
+
+                            <mat:PackIcon Kind="WindowMaximize" Width="25" Height="25"></mat:PackIcon>
+
+                        </Button>
+
+                        <Button x:Name="btnCerrarApp" 
+                                HorizontalAlignment="Right" 
+                                Click="btnCerrarApp_Click" 
+                                Background="Transparent" 
+                                BorderThickness="0"
+                                Padding="5" Margin="5">
+
+                            <mat:PackIcon Kind="Close" Width="25" Height="25"></mat:PackIcon>
+                            
+                        </Button>
+                       
+
+                    </StackPanel>
+
+                   
+                    
+                    
+                </Grid>
+                
+                
+                
+            </Grid>
+
+          
+            
+            
+        </Grid>
+        
+        
+        <!-- PARTE MEDIO CONTENIDO -->
+
+        <Grid Grid.Row="1" x:Name="GridContenidoMedio">
+
+
+
+
+            <!-- Menu Hamburger -->
+            <mah:HamburgerMenu x:Name="hamMenuPrincipal"
+                 DisplayMode="CompactInline"             
+                 HamburgerButtonStyle="{StaticResource CustomHamburgerButtonStyle}"
+                 PaneBackground="#1d4355" 
+                 IsPaneOpen="True"
+                 ItemTemplate="{StaticResource MenuItemTemplateImage}"
+                 OptionsItemTemplate="{StaticResource MenuItemTemplateIcon}"
+                 ItemClick="hamMenuPrincipal_ItemClick"
+                 OptionsItemClick="hamMenuPrincipal_OptionsItemClick"
+                 
+                >
+
+                <mah:HamburgerMenu.ItemsSource>
+                    <mah:HamburgerMenuItemCollection>
+                        
+                        <!--
+                        <mah:HamburgerMenuImageItem Label="Inicio" ToolTip="Volver al inicio" >
+
+                            <mah:HamburgerMenuImageItem.Thumbnail>
+                                <BitmapImage UriSource="/Recursos/Iconos/HomeWhite.png"/>
+                            </mah:HamburgerMenuImageItem.Thumbnail>
+
+                        </mah:HamburgerMenuImageItem>
+
+
+                        <mah:HamburgerMenuImageItem Label="Crear documento" ToolTip="Crear un nuevo documento">
+
+
+                            <mah:HamburgerMenuImageItem.Thumbnail>
+                                <BitmapImage UriSource="/Recursos/Iconos/AddDocumentWhite.png"/>
+                            </mah:HamburgerMenuImageItem.Thumbnail>
+
+                        </mah:HamburgerMenuImageItem>
+
+                        <mah:HamburgerMenuImageItem x:Name="hamUsuarios" Label="Usuarios" ToolTip="Usuarios">
+
+
+                            <mah:HamburgerMenuImageItem.Thumbnail>
+                                <BitmapImage UriSource="/Recursos/Iconos/Usuarios_White.png"/>
+                            </mah:HamburgerMenuImageItem.Thumbnail>
+
+                        </mah:HamburgerMenuImageItem>
+
+                        <mah:HamburgerMenuImageItem x:Name="hamResponsables" Label="Responsables" ToolTip="Responsables">
+
+
+                            <mah:HamburgerMenuImageItem.Thumbnail>
+                                <BitmapImage UriSource="/Recursos/Iconos/ResponsableWhite.png"/>
+                            </mah:HamburgerMenuImageItem.Thumbnail>
+
+                        </mah:HamburgerMenuImageItem>
+
+
+
+
+                        
+                        <mah:HamburgerMenuImageItem x:Name="hamInformes" Label="Informes" ToolTip="Crear un nuevo informe">
+
+                            <mah:HamburgerMenuImageItem.Thumbnail>
+                                <BitmapImage UriSource="/Recursos/Iconos/informeWhite.png" />
+                            </mah:HamburgerMenuImageItem.Thumbnail>
+
+                        </mah:HamburgerMenuImageItem>
+                        
+                         
+                        <mah:HamburgerMenuImageItem x:Name="hamGraficos" Label="Gráficos" ToolTip="Crear un nuevo gráfico">
+
+                            <mah:HamburgerMenuImageItem.Thumbnail>
+                                <BitmapImage UriSource="/Recursos/Iconos/GraficoWhite.png" />
+                            </mah:HamburgerMenuImageItem.Thumbnail>
+
+                        </mah:HamburgerMenuImageItem>
+                        
+                        -->
+
+                     
+
+
+
+
+
+
+                    </mah:HamburgerMenuItemCollection>
+                </mah:HamburgerMenu.ItemsSource>
+
+                <mah:HamburgerMenu.OptionsItemsSource>
+                    <mah:HamburgerMenuItemCollection>
+                        <mah:HamburgerMenuIconItem Label="Ayuda">
+                            <mah:HamburgerMenuIconItem.Icon>
+                                <mat:PackIcon Kind="Help" Foreground="White" />
+                                <!-- Color negro -->
+                            </mah:HamburgerMenuIconItem.Icon>
+                        </mah:HamburgerMenuIconItem>
+                        <mah:HamburgerMenuIconItem Label="Acerca de">
+                            <mah:HamburgerMenuIconItem.Icon>
+                                <mat:PackIcon Kind="Information" Foreground="White" />
+                                <!-- Color negro -->
+                            </mah:HamburgerMenuIconItem.Icon>
+                        </mah:HamburgerMenuIconItem>
+                    </mah:HamburgerMenuItemCollection>
+                </mah:HamburgerMenu.OptionsItemsSource>
+
+                
+                <!-- Contenido, parte derecha -->
+                
+                <mah:HamburgerMenu.Content>
+                    <Grid x:Name="ContenidoBase"  Background="White">
+                        
+
+                    </Grid>
+                </mah:HamburgerMenu.Content>
+
+
+            </mah:HamburgerMenu>
+
+
+
+
+            
+            
+        </Grid>
+        
+        
+       
+    </Grid>
+</mah:MetroWindow>

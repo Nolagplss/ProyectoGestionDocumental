@@ -1,0 +1,186 @@
+﻿<mah:MetroWindow x:Class="ProyectoDocumentales.Frontend.Login.LoginForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoDocumentales.Frontend.Login"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        ShowTitleBar="False"
+        ShowCloseButton="False"
+        ShowMaxRestoreButton="False"
+        ShowMinButton="False"
+        ResizeMode="CanResizeWithGrip"
+                 
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="Segoe UI"
+        mat:ShadowAssist.Darken="True"
+        Title="Login" Height="450" Width="800">
+    <Grid>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+
+       
+
+        <Grid Grid.Row="0" VerticalAlignment="Top" Margin="0">
+            <!-- Barra superior personalizada -->
+            <Grid Background="#365b6d" Height="40" MouseDown="Grid_MouseDown" VerticalAlignment="Top" >
+
+                <!-- Division parte superior -->
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- Texto Docume-->
+
+                <Grid Grid.Column="0">
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+
+                        <mat:PackIcon Kind="FileDocument" Foreground="White" VerticalAlignment="Center" Height="30" Width="25" MaxHeight="50" MaxWidth="50"></mat:PackIcon>
+
+                        <TextBlock
+                  Margin="5,0,0,0"
+                  Text="DocuMe" FontSize="18" VerticalAlignment="Center" Foreground="White"></TextBlock>
+
+
+                    </StackPanel>
+
+
+
+                </Grid>
+
+                <Grid Grid.Column="2">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <!-- Boton Minimizar -->
+                        <Button 
+                             x:Name="btnMinimizarApp"
+                             Click="btnMinimizarApp_Click"
+                             Background="Transparent"
+                             BorderThickness="0"
+                              VerticalAlignment="Bottom" 
+                             Margin="5,5,5,0"
+                             Padding="5"
+                             >
+
+                            <mat:PackIcon Kind="WindowMinimize" Width="25" Height="25"></mat:PackIcon>
+
+                        </Button>
+
+                        <Button 
+                              x:Name="btnMaximizarMinimizar"
+                              HorizontalAlignment="Center" 
+                              Click="btnMaximizarMinimizar_Click"
+                              Background="Transparent" 
+                              BorderThickness="0"
+                              Padding="5"
+                              Margin="5">
+
+                            <mat:PackIcon Kind="WindowMaximize" Width="25" Height="25"></mat:PackIcon>
+
+                        </Button>
+
+                        <Button x:Name="btnCerrarApp" 
+                             HorizontalAlignment="Right" 
+                             Click="btnCerrarApp_Click" 
+                             Background="Transparent" 
+                             BorderThickness="0"
+                             Padding="5" Margin="5">
+
+                            <mat:PackIcon Kind="Close" Width="25" Height="25"></mat:PackIcon>
+
+                        </Button>
+                    </StackPanel>
+
+                </Grid>
+
+            </Grid>
+            </Grid>
+
+        <Grid Grid.Row="1">
+            <Image Source="/Recursos/Imagenes/LoginProScalado.jpg" Stretch="Fill" Panel.ZIndex="0" />
+
+            <Viewbox  Stretch="Uniform" MaxHeight="500" MaxWidth="500" Margin="20">
+                <Grid Width="380" Height="370">
+                    <!-- Border con sombra -->
+                    <Border
+               Width="380"
+             Height="370"
+             CornerRadius="10"
+             Background="#CCFFFFFF"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center"
+            Style="{StaticResource BorderConSombra}">
+                    </Border>
+
+                    <!-- Border con efecto de desenfoque -->
+                    <Border
+             Width="310"
+             Height="300"
+             CornerRadius="10"
+             Background="#CCFFFFFF"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center"
+             Style="{StaticResource BorderConDesenfoque}">
+                    </Border>
+
+                    <!-- StackPanel con LOGIN -->
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="280">
+                        <Viewbox Height="40" Width="40" HorizontalAlignment="Center" Margin="15,34,10,10">
+                            <mat:PackIcon Kind="Login" Width="40" Height="40" Foreground="#00695C" />
+                        </Viewbox>
+
+                        <TextBlock Text="Login"
+                 FontSize="25"
+                 FontWeight="Bold"
+                 Foreground="#212121"
+                 HorizontalAlignment="Center"
+                 Margin="0,0,0,20"/>
+
+                        <StackPanel Orientation="Vertical" Margin="20,10,20,10">
+                            <TextBox 
+                         x:Name="txtCorreoUsuario"
+                         Margin="0,0,0,10"
+                         mat:HintAssist.Hint="mail"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                            <PasswordBox
+                             x:Name="txtContraseniaUsuario"
+                             Margin="0,0,0,20"
+                             mat:HintAssist.Hint="Password"
+                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+
+                            <Button Content="Login"
+                         Margin="10"
+                         Background="#00695C"
+                         Foreground="White"
+                         FontWeight="Bold"
+                         BorderThickness="0"
+                         Cursor="Hand"
+                         Style="{StaticResource MaterialDesignRaisedButton}" 
+                         x:Name="btnLogin"
+                         Click="btnLogin_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Viewbox>
+        </Grid>
+       
+
+
+    </Grid>
+</mah:MetroWindow>
