@@ -110,6 +110,10 @@ La integridad referencial se gestiona mediante claves foráneas.
 
 5. Dale al boton ejecución arriba del todo en el medio.
 
+6. Inicia sesion con un usuario con el Rol de Admin o profesor. Ejemplos:
+   -Admin: carlos.garcia@example.com 123456
+   -Profesor: lucia.martinez@example.com 123456 
+
 ## 🖼️ Capturas de pantalla
 
 Pantalla principal:  
