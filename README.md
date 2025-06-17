@@ -85,6 +85,17 @@ La integridad referencial se gestiona mediante claves foráneas.
 5. **Informes y gráficos:** Generación y exportación a PDF.
 6. **Configuración del perfil:** Cambio de contraseña y centro educativo (según rol).
 
+## ℹ️ Cosas a tener en cuenta
+
+- Para **visualizar un documento generado**, primero edita uno y pulsa en "**Generar documento**".  
+  Si no deseas modificarlo, simplemente crea uno nuevo y genera un pdf usando el botón.  
+  Si no hay ningún documento creado, primero deberás crear uno.
+
+- En el apartado de **Crear empresa**, si no aparecen **responsables** o **centros de trabajo**, es porque aún no existen.  
+  Estos deben ser creados previamente desde sus respectivos apartados.  
+  Solo se mostrarán los responsables y centros de trabajo **que no estén ya asignados a otra empresa**.
+
+
 ## 🔐 Roles y permisos
 
 - **Administrador:** Acceso total.
