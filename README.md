@@ -90,6 +90,8 @@ La integridad referencial se gestiona mediante claves foráneas.
 - Para **visualizar un documento generado**, primero edita uno y pulsa en "**Generar documento**".  
   Si no deseas modificarlo, simplemente crea uno nuevo y genera un pdf usando el botón.  
   Si no hay ningún documento creado, primero deberás crear uno.
+  El PDF generado se guarda automáticamente en la carpeta:  
+  `./bin/Debug/net8.0/rutas/`
 
 - En el apartado de **Crear empresa**, si no aparecen **responsables** o **centros de trabajo**, es porque aún no existen.  
   Estos deben ser creados previamente desde sus respectivos apartados.  
