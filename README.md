@@ -110,6 +110,15 @@ La integridad referencial se gestiona mediante claves foráneas.
 🔧 Ampliable  
 📈 Usabilidad probada
 
+## 🎥 Demostración del programa en uso 🔴 **IMPORTANTE**
+
+¿Quieres ver cómo funciona DocuMe en la práctica?
+
+👉 [**Visualiza el uso real del programa en este PDF**](./assets/Utilización_del_programa.pdf)
+
+Este documento muestra capturas reales mientras se utiliza la aplicación, para que puedas hacerte una idea clara de su funcionamiento y diseño en acción.
+
+
 ## 🚀 Instalación
 
 1. Clona el repositorio:
