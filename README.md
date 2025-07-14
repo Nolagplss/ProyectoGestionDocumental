@@ -110,7 +110,7 @@ La integridad referencial se gestiona mediante claves foráneas.
 🔧 Ampliable  
 📈 Usabilidad probada
 
-## 🎥 Demostración del programa en uso 🔴 **IMPORTANTE**
+## 🔴🔴🔴🔴🔴🔴🎥 Demostración del programa en uso 🔴 **IMPORTANTE**🔴🔴🔴🔴🔴🔴🔴🔴
 
 ¿Quieres ver cómo funciona DocuMe en la práctica?
 
