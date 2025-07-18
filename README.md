@@ -166,8 +166,7 @@ Proyecto Final de Desarrollo de Aplicaciones Multiplataforma
 
 Este proyecto ha sido desarrollado por **Samuel Radu Dragomir** como parte de su proyecto final de 2ºDAM.
 
-No se permite la distribución o modificación de este software sin el consentimiento expreso del autor.  
-**No se permite su uso con fines comerciales por terceros.**
+**No se permite su distribucion o uso con fines comerciales sin permiso del autor.**
 
 © 2025 Samuel Radu Dragomir. Todos los derechos reservados.
 
